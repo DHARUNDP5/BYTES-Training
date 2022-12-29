@@ -1,0 +1,31 @@
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
+        for(int i=0;i<lists.length;i++){
+            ListNode head = lists[i];
+            while(head!=null){
+                if(!(map.containsKey(head.val))){
+                    map.put(head.val,1);
+                }else{
+                    int value = map.get(head.val);
+                    map.put(head.val,value+1);
+                }
+                head=head.next;
+            }
+        }    
+        ListNode p = new ListNode(10);
+        ListNode res = p;
+        ListNode tail = null;
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()){
+            int key = entry.getKey();
+            int values = entry.getValue();
+            for(int i=0;i<values;i++){
+                ListNode val1 = new ListNode(key);
+                tail = val1;
+                res.next = tail;
+                res = res.next;
+            }
+        }
+        return p.next;
+    }
+    }
