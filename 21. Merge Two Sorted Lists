@@ -1,0 +1,42 @@
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
+        ListNode p1 = list1;
+        ListNode p2 = list2;
+        while(p1!=null){
+            int n = p1.val;
+            if(!(map.containsKey(n))){
+                map.put(n,1);
+            }else{
+                int value = map.get(n);
+                map.put(n,value+1);
+            }
+            p1=p1.next;
+        }
+         while(p2!=null){
+            int n = p2.val;
+            if(!(map.containsKey(n))){
+                map.put(n,1);
+            }else{
+                int value = map.get(n);
+                map.put(n,value+1);
+            }
+            p2=p2.next;
+        }
+        ListNode result = new ListNode(10);
+        ListNode tail = null;
+        ListNode res = result;
+         for (Map.Entry<Integer, Integer> entry : map.entrySet()){
+             int m = entry.getValue();
+             int k = entry.getKey();
+             for(int i=0;i<m;i++){
+                 ListNode val = new ListNode(k);
+                 System.out.println(val.val);
+                 tail = val;
+                 res.next = tail;
+                 res = res.next;
+             }
+         }
+         return result.next;
+    }
+}
